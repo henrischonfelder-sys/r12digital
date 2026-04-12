@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ruta 12 Digital — Agência de Marketing Digital</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:    #06080D;
+      --deep:     #0D1220;
+      --blue:     #00C8FF;
+      --blue-dim: #0066AA;
+      --gold:     #F5A623;
+      --white:    #F0F2F5;
+      --muted:    #8A94A6;
+      --border:   rgba(0,200,255,.12);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      line-height: 1.6;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* ── Custom cursor ── */
+    #cursor {
+      position: fixed; width: 10px; height: 10px;
+      background: var(--blue); border-radius: 50%;
+      pointer-events: none; z-index: 9999;
+      transform: translate(-50%,-50%);
+      transition: width .2s, height .2s, background .2s;
+      mix-blend-mode: screen;
+    }
+    #cursor-ring {
+      position: fixed; width: 36px; height: 36px;
+      border: 1px solid rgba(0,200,255,.5); border-radius: 50%;
+      pointer-events: none; z-index: 9998;
+      transform: translate(-50%,-50%);
+      transition: transform .12s ease, width .3s, height .3s, opacity .3s;
+    }
+    body:hover #cursor { opacity: 1; }
+
+    /* ── Noise overlay ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 1; pointer-events: none;
+      opacity: .03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+    }
+
+    /* ── Utility ── */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+    .tag {
+      display: inline-block; font-family: 'Syne', sans-serif;
+      font-size: .65rem; font-weight: 700; letter-spacing: .18em;
+      text-transform: uppercase; color: var(--blue);
+      border: 1px solid var(--border); padding: .3rem .9rem;
+      border-radius: 2rem; background: rgba(0,200,255,.05);
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 1.4rem 2.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      background: linear-gradient(180deg, rgba(6,8,13,.95) 0%, transparent 100%);
+      backdrop-filter: blur(4px);
+      border-bottom: 1px solid rgba(0,200,255,.06);
+    }
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.7rem; letter-spacing: .08em;
+      color: var(--white); text-decoration: none;
+    }
+    .nav-logo span { color: var(--blue); }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      font-family: 'Syne', sans-serif; font-size: .8rem;
+      font-weight: 500; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--muted); text-decoration: none;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-cta {
+      font-family: 'Syne', sans-serif; font-size: .78rem; font-weight: 700;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--black); background: var(--blue);
+      padding: .6rem 1.5rem; border-radius: .2rem;
+      text-decoration: none; transition: background .2s, transform .15s;
+    }
+    .nav-cta:hover { background: #33D8FF; transform: translateY(-1px); }
+
+    /* ── HERO ── */
+    #hero {
+      position: relative; min-height: 100vh;
+      display: flex; align-items: center;
+      overflow: hidden; padding-top: 6rem;
+    }
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background:
+        radial-gradient(ellipse 60% 60% at 70% 40%, rgba(0,120,200,.18) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 50% at 20% 80%, rgba(0,40,80,.3) 0%, transparent 70%),
+        var(--black);
+    }
+    .hero-12 {
+      position: absolute; right: -2vw; top: 50%;
+      transform: translateY(-50%);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(18rem, 32vw, 42rem);
+      line-height: 1;
+      background: linear-gradient(180deg, rgba(0,200,255,.07) 0%, transparent 80%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+      user-select: none; pointer-events: none;
+    }
+    .hero-grid-lines {
+      position: absolute; inset: 0; z-index: 0; pointer-events: none;
+      background-image:
+        linear-gradient(rgba(0,200,255,.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,200,255,.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 80%);
+    }
+    .hero-content { position: relative; z-index: 2; max-width: 800px; }
+    .hero-eyebrow { margin-bottom: 1.8rem; }
+    .hero-heading {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3.5rem, 9vw, 8rem);
+      line-height: .95; letter-spacing: .02em;
+      margin-bottom: 1.8rem;
+    }
+    .hero-heading em { font-style: normal; color: var(--blue); }
+    .hero-sub {
+      font-size: 1.05rem; font-weight: 300; color: var(--muted);
+      max-width: 480px; margin-bottom: 3rem; line-height: 1.7;
+    }
+    .hero-actions { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+    .btn-primary {
+      font-family: 'Syne', sans-serif; font-size: .85rem; font-weight: 700;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--black); background: var(--blue);
+      padding: .9rem 2.2rem; border-radius: .2rem;
+      text-decoration: none; transition: all .2s;
+      border: 1px solid transparent;
+    }
+    .btn-primary:hover { background: #33D8FF; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,200,255,.3); }
+    .btn-ghost {
+      font-family: 'Syne', sans-serif; font-size: .85rem; font-weight: 600;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: var(--white);
+      padding: .9rem 2.2rem; border-radius: .2rem;
+      text-decoration: none; transition: all .2s;
+      border: 1px solid rgba(255,255,255,.15);
+    }
+    .btn-ghost:hover { border-color: var(--blue); color: var(--blue); }
+    .hero-stats {
+      position: absolute; bottom: 3rem; right: 2rem; z-index: 2;
+      display: flex; gap: 3rem;
+    }
+    .stat { text-align: right; }
+    .stat-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.8rem; line-height: 1; color: var(--white);
+    }
+    .stat-num span { color: var(--blue); }
+    .stat-label {
+      font-family: 'Syne', sans-serif; font-size: .65rem;
+      font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ── MARQUEE STRIP ── */
+    .marquee-strip {
+      position: relative; overflow: hidden; z-index: 2;
+      padding: 1rem 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: rgba(0,200,255,.04);
+    }
+    .marquee-track {
+      display: flex; gap: 0; white-space: nowrap;
+      animation: marquee 28s linear infinite;
+    }
+    .marquee-item {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem; letter-spacing: .2em;
+      color: var(--muted); padding: 0 2.5rem;
+    }
+    .marquee-item b { color: var(--blue); font-weight: 400; margin-right: 2.5rem; }
+    @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* ── SERVICES ── */
+    #services { padding: 8rem 0; position: relative; z-index: 2; }
+    .section-header { margin-bottom: 5rem; }
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      line-height: 1; letter-spacing: .02em;
+      margin-top: .8rem; margin-bottom: 1rem;
+    }
+    .section-sub { font-size: .95rem; color: var(--muted); max-width: 420px; }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      border: 1px solid var(--border);
+      border-radius: .5rem;
+      overflow: hidden;
+    }
+    .service-card {
+      background: var(--deep);
+      padding: 2.8rem 2.2rem;
+      position: relative; overflow: hidden;
+      transition: background .25s;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .service-card:nth-child(3n) { border-right: none; }
+    .service-card:nth-last-child(-n+3) { border-bottom: none; }
+    .service-card::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(0,200,255,.06) 0%, transparent 60%);
+      opacity: 0; transition: opacity .3s;
+    }
+    .service-card:hover { background: #111827; }
+    .service-card:hover::before { opacity: 1; }
+    .service-icon {
+      width: 44px; height: 44px; margin-bottom: 1.5rem;
+      display: flex; align-items: center; justify-content: center;
+      border: 1px solid var(--border); border-radius: .35rem;
+      background: rgba(0,200,255,.05);
+    }
+    .service-icon svg { width: 22px; height: 22px; stroke: var(--blue); fill: none; stroke-width: 1.5; }
+    .service-num {
+      position: absolute; top: 1.5rem; right: 1.8rem;
+      font-family: 'Bebas Neue', sans-serif; font-size: 4rem;
+      line-height: 1; color: rgba(0,200,255,.06);
+      pointer-events: none; user-select: none;
+    }
+    .service-title {
+      font-family: 'Syne', sans-serif; font-size: 1.05rem;
+      font-weight: 700; margin-bottom: .7rem; color: var(--white);
+    }
+    .service-desc { font-size: .88rem; color: var(--muted); line-height: 1.65; }
+
+    /* ── ABOUT ── */
+    #about {
+      padding: 8rem 0; position: relative; z-index: 2;
+      overflow: hidden;
+    }
+    #about::before {
+      content: ''; position: absolute; left: -20%; top: 20%;
+      width: 60%; height: 60%;
+      background: radial-gradient(ellipse, rgba(0,100,170,.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center;
+    }
+    .about-visual {
+      position: relative;
+      aspect-ratio: 4/5; border-radius: .5rem; overflow: hidden;
+    }
+    .about-visual-inner {
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(135deg, var(--deep) 0%, #091525 100%);
+      border: 1px solid var(--border);
+      border-radius: .5rem;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .about-visual-inner::before {
+      content: ''; position: absolute; inset: 0;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(0,200,255,.15) 0%, transparent 50%),
+        radial-gradient(circle at 70% 70%, rgba(245,166,35,.1) 0%, transparent 50%);
+    }
+    .about-big-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 14rem; line-height: 1;
+      background: linear-gradient(180deg, rgba(0,200,255,.2) 0%, transparent 80%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; position: relative; z-index: 1;
+    }
+    .about-badge {
+      position: absolute; bottom: 2rem; left: 2rem; right: 2rem;
+      background: rgba(6,8,13,.85); backdrop-filter: blur(8px);
+      border: 1px solid var(--border); border-radius: .4rem;
+      padding: 1.2rem 1.5rem; z-index: 2;
+    }
+    .about-badge-title {
+      font-family: 'Syne', sans-serif; font-size: .95rem; font-weight: 700;
+      margin-bottom: .3rem;
+    }
+    .about-badge-sub { font-size: .8rem; color: var(--muted); }
+    .about-badge-bar {
+      margin-top: .9rem; height: 3px; background: rgba(255,255,255,.08);
+      border-radius: 2px; overflow: hidden;
+    }
+    .about-badge-bar-fill {
+      height: 100%; width: 78%;
+      background: linear-gradient(90deg, var(--blue), var(--gold));
+      border-radius: 2px;
+      animation: barfill 2s ease forwards;
+    }
+    @keyframes barfill { from { width: 0; } to { width: 78%; } }
+    .about-lead {
+      font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 700;
+      line-height: 1.35; margin-bottom: 1.5rem; margin-top: 1rem;
+      color: var(--white);
+    }
+    .about-lead em { font-style: normal; color: var(--blue); }
+    .about-body { font-size: .92rem; color: var(--muted); line-height: 1.75; margin-bottom: 2.5rem; }
+    .about-pillars { display: flex; flex-direction: column; gap: .8rem; margin-bottom: 2.5rem; }
+    .pillar {
+      display: flex; align-items: center; gap: 1rem;
+      font-family: 'Syne', sans-serif; font-size: .82rem; font-weight: 600;
+      color: var(--white);
+    }
+    .pillar::before {
+      content: ''; width: 32px; height: 1px;
+      background: var(--blue); flex-shrink: 0;
+    }
+
+    /* ── RESULTS ── */
+    #results {
+      padding: 8rem 0; position: relative; z-index: 2;
+      background: var(--deep);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .results-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; margin-top: 4rem; }
+    .result-item {
+      padding: 3rem 2rem;
+      border-right: 1px solid var(--border);
+      text-align: center;
+      position: relative;
+    }
+    .result-item:last-child { border-right: none; }
+    .result-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3.8rem; line-height: 1; color: var(--white);
+      margin-bottom: .4rem;
+    }
+    .result-num span { color: var(--blue); }
+    .result-label {
+      font-family: 'Syne', sans-serif; font-size: .7rem;
+      font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--muted);
+    }
+    .result-glow {
+      position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(ellipse 60% 40% at 50% 50%, rgba(0,200,255,.06), transparent);
+      opacity: 0; transition: opacity .3s;
+    }
+    .result-item:hover .result-glow { opacity: 1; }
+
+    /* ── PROCESS ── */
+    #process { padding: 8rem 0; position: relative; z-index: 2; }
+    .process-steps {
+      display: grid; grid-template-columns: repeat(4,1fr);
+      gap: 0; margin-top: 4rem; position: relative;
+    }
+    .process-steps::before {
+      content: ''; position: absolute; top: 28px; left: 10%;right: 10%;
+      height: 1px; background: linear-gradient(90deg, transparent, var(--blue-dim), transparent);
+      z-index: 0;
+    }
+    .step { padding: 0 1.5rem; text-align: center; position: relative; z-index: 1; }
+    .step-dot {
+      width: 56px; height: 56px; border-radius: 50%;
+      border: 1px solid var(--border); background: var(--black);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.5rem;
+      font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; color: var(--blue);
+      transition: background .25s, border-color .25s;
+    }
+    .step:hover .step-dot { background: rgba(0,200,255,.12); border-color: var(--blue); }
+    .step-title {
+      font-family: 'Syne', sans-serif; font-size: .95rem; font-weight: 700;
+      margin-bottom: .6rem; color: var(--white);
+    }
+    .step-desc { font-size: .82rem; color: var(--muted); line-height: 1.6; }
+
+    /* ── TESTIMONIALS ── */
+    #testimonials { padding: 8rem 0; position: relative; z-index: 2; }
+    .testi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 4rem; }
+    .testi-card {
+      background: var(--deep); border: 1px solid var(--border);
+      border-radius: .5rem; padding: 2.5rem;
+      transition: border-color .25s;
+    }
+    .testi-card:hover { border-color: rgba(0,200,255,.3); }
+    .testi-quote {
+      font-size: .95rem; color: var(--white); line-height: 1.75;
+      font-style: italic; font-weight: 300;
+      margin-bottom: 1.8rem;
+    }
+    .testi-author { display: flex; align-items: center; gap: 1rem; }
+    .testi-avatar {
+      width: 42px; height: 42px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue-dim), var(--blue));
+      flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+      font-family: 'Bebas Neue', sans-serif; font-size: 1rem; color: var(--white);
+    }
+    .testi-name {
+      font-family: 'Syne', sans-serif; font-size: .88rem; font-weight: 700;
+      color: var(--white); margin-bottom: .15rem;
+    }
+    .testi-role { font-size: .78rem; color: var(--muted); }
+    .testi-stars { margin-bottom: 1rem; color: var(--gold); font-size: .85rem; }
+
+    /* ── CTA ── */
+    #cta {
+      padding: 8rem 0; position: relative; overflow: hidden; z-index: 2;
+      background: linear-gradient(135deg, #091525 0%, var(--black) 50%, #060d10 100%);
+      border-top: 1px solid var(--border);
+    }
+    #cta::before {
+      content: ''; position: absolute;
+      top: -50%; left: 20%; width: 60%; height: 200%;
+      background: radial-gradient(ellipse, rgba(0,200,255,.1) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .cta-inner { text-align: center; position: relative; z-index: 1; }
+    .cta-heading {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3rem, 7vw, 6.5rem);
+      line-height: .95; margin: 1rem 0 1.5rem;
+    }
+    .cta-heading em { font-style: normal; color: var(--blue); }
+    .cta-sub { font-size: 1rem; color: var(--muted); max-width: 440px; margin: 0 auto 3rem; }
+    .cta-form {
+      display: flex; gap: .75rem; max-width: 440px; margin: 0 auto;
+      flex-wrap: wrap; justify-content: center;
+    }
+    .cta-input {
+      flex: 1; min-width: 220px; padding: .9rem 1.2rem;
+      background: rgba(255,255,255,.06); border: 1px solid var(--border);
+      border-radius: .2rem; color: var(--white); font-family: 'DM Sans', sans-serif;
+      font-size: .9rem; outline: none; transition: border-color .2s;
+    }
+    .cta-input::placeholder { color: var(--muted); }
+    .cta-input:focus { border-color: var(--blue); }
+    .btn-submit {
+      font-family: 'Syne', sans-serif; font-size: .85rem; font-weight: 700;
+      letter-spacing: .1em; text-transform: uppercase;
+      background: var(--blue); color: var(--black);
+      border: none; padding: .9rem 2rem; border-radius: .2rem;
+      cursor: none; transition: all .2s;
+    }
+    .btn-submit:hover { background: #33D8FF; transform: translateY(-1px); }
+    .cta-disclaimer { font-size: .75rem; color: var(--muted); margin-top: 1rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 3rem 0; position: relative; z-index: 2;
+      border-top: 1px solid var(--border);
+    }
+    .footer-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .footer-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem; letter-spacing: .08em;
+      color: var(--white); text-decoration: none;
+    }
+    .footer-logo span { color: var(--blue); }
+    .footer-copy { font-size: .78rem; color: var(--muted); }
+    .footer-links { display: flex; gap: 1.8rem; list-style: none; }
+    .footer-links a {
+      font-family: 'Syne', sans-serif; font-size: .72rem;
+      font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+      color: var(--muted); text-decoration: none; transition: color .2s;
+    }
+    .footer-links a:hover { color: var(--blue); }
+
+    /* ── Scroll reveal ── */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal-delay-1 { transition-delay: .1s; }
+    .reveal-delay-2 { transition-delay: .2s; }
+    .reveal-delay-3 { transition-delay: .3s; }
+    .reveal-delay-4 { transition-delay: .4s; }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .services-grid { grid-template-columns: 1fr 1fr; }
+      .service-card:nth-child(2n) { border-right: none; }
+      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .about-visual { display: none; }
+      .results-grid { grid-template-columns: repeat(2,1fr); }
+      .result-item:nth-child(2) { border-right: none; }
+      .process-steps { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+      .process-steps::before { display: none; }
+      .testi-grid { grid-template-columns: 1fr; }
+      .hero-stats { position: static; margin-top: 3rem; justify-content: flex-start; }
+      nav { padding: 1.2rem 1.5rem; }
+      .nav-links { display: none; }
+    }
+    @media (max-width: 600px) {
+      .services-grid { grid-template-columns: 1fr; }
+      .results-grid { grid-template-columns: 1fr 1fr; }
+      .process-steps { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Custom cursor -->
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Ruta <span>12</span> Digital</a>
+  <ul class="nav-links">
+    <li><a href="#services">Serviços</a></li>
+    <li><a href="#about">Sobre</a></li>
+    <li><a href="#results">Resultados</a></li>
+    <li><a href="#process">Processo</a></li>
+  </ul>
+  <a href="#cta" class="nav-cta">Falar com a agência</a>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid-lines"></div>
+  <div class="hero-12">12</div>
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <span class="tag">Agência de Marketing Digital</span>
+      </div>
+      <h1 class="hero-heading">
+        Sua marca<br/>
+        na <em>rota certa</em><br/>
+        do digital.
+      </h1>
+      <p class="hero-sub">
+        Estratégia, performance e criatividade para marcas que querem crescer de verdade no ambiente digital.
+      </p>
+      <div class="hero-actions">
+        <a href="#cta" class="btn-primary">Quero crescer agora</a>
+        <a href="#services" class="btn-ghost">Ver serviços</a>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">200<span>+</span></div>
+        <div class="stat-label">Clientes atendidos</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">8<span>×</span></div>
+        <div class="stat-label">ROI médio</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">5<span>anos</span></div>
+        <div class="stat-label">No mercado</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-strip">
+  <div class="marquee-track">
+    <span class="marquee-item">Tráfego Pago <b>✦</b></span>
+    <span class="marquee-item">SEO & Conteúdo <b>✦</b></span>
+    <span class="marquee-item">Social Media <b>✦</b></span>
+    <span class="marquee-item">Branding Digital <b>✦</b></span>
+    <span class="marquee-item">Automação de Marketing <b>✦</b></span>
+    <span class="marquee-item">Email Marketing <b>✦</b></span>
+    <span class="marquee-item">Análise de Dados <b>✦</b></span>
+    <span class="marquee-item">Growth Hacking <b>✦</b></span>
+    <!-- duplicate for seamless loop -->
+    <span class="marquee-item">Tráfego Pago <b>✦</b></span>
+    <span class="marquee-item">SEO & Conteúdo <b>✦</b></span>
+    <span class="marquee-item">Social Media <b>✦</b></span>
+    <span class="marquee-item">Branding Digital <b>✦</b></span>
+    <span class="marquee-item">Automação de Marketing <b>✦</b></span>
+    <span class="marquee-item">Email Marketing <b>✦</b></span>
+    <span class="marquee-item">Análise de Dados <b>✦</b></span>
+    <span class="marquee-item">Growth Hacking <b>✦</b></span>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="tag">O que fazemos</span>
+      <h2 class="section-title">Serviços que<br/>movem resultados</h2>
+      <p class="section-sub">Soluções integradas para cada etapa da sua jornada de crescimento digital.</p>
+    </div>
+    <div class="services-grid">
+
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <div class="service-num">01</div>
+        <div class="service-title">Tráfego Pago</div>
+        <p class="service-desc">Campanhas de alta performance no Google Ads, Meta Ads e LinkedIn. Gerenciamos cada centavo para maximizar seu retorno.</p>
+      </div>
+
+      <div class="service-card reveal reveal-delay-1">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </div>
+        <div class="service-num">02</div>
+        <div class="service-title">SEO & Conteúdo</div>
+        <p class="service-desc">Estratégias de SEO on e off-page aliadas a produção de conteúdo relevante que posiciona sua marca como autoridade.</p>
+      </div>
+
+      <div class="service-card reveal reveal-delay-2">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/></svg>
+        </div>
+        <div class="service-num">03</div>
+        <div class="service-title">Social Media</div>
+        <p class="service-desc">Gestão completa de redes sociais com estratégia, criação de conteúdo, design e engajamento com a comunidade.</p>
+      </div>
+
+      <div class="service-card reveal">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        </div>
+        <div class="service-num">04</div>
+        <div class="service-title">Branding Digital</div>
+        <p class="service-desc">Identidade visual, posicionamento e narrativa de marca para que você seja memorável e consistente em todos os pontos de contato.</p>
+      </div>
+
+      <div class="service-card reveal reveal-delay-1">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        </div>
+        <div class="service-num">05</div>
+        <div class="service-title">Marketing de Dados</div>
+        <p class="service-desc">Dashboards, análise de métricas e insights acionáveis para decisões mais inteligentes e investimentos com previsibilidade.</p>
+      </div>
+
+      <div class="service-card reveal reveal-delay-2">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        <div class="service-num">06</div>
+        <div class="service-title">Email Marketing & CRM</div>
+        <p class="service-desc">Fluxos de automação, nutrição de leads e campanhas de email que convertem contatos em clientes fiéis e recorrentes.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-visual reveal">
+        <div class="about-visual-inner">
+          <div class="about-big-num">12</div>
+          <div class="about-badge">
+            <div class="about-badge-title">Taxa média de crescimento</div>
+            <div class="about-badge-sub">Clientes ativos nos últimos 12 meses</div>
+            <div class="about-badge-bar"><div class="about-badge-bar-fill"></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="about-text reveal reveal-delay-1">
+        <span class="tag">Quem somos</span>
+        <h2 class="about-lead">
+          Uma agência que<br/>
+          pensa em <em>rotas</em>,<br/>
+          não em atalhos.
+        </h2>
+        <p class="about-body">
+          A Ruta 12 Digital nasceu da convicção de que marketing digital de verdade exige estratégia, dados e criatividade trabalhando juntos. Somos uma equipe de especialistas apaixonados por crescimento, com experiência em projetos de diferentes portes e segmentos.
+        </p>
+        <p class="about-body" style="margin-top:-1rem">
+          Nossa metodologia combina análise profunda com execução ágil, garantindo que cada decisão seja baseada em evidências e cada campanha entregue resultado real.
+        </p>
+        <div class="about-pillars">
+          <div class="pillar">Estratégia orientada a dados</div>
+          <div class="pillar">Time especializado e dedicado</div>
+          <div class="pillar">Transparência em cada relatório</div>
+          <div class="pillar">Foco em ROI e crescimento sustentável</div>
+        </div>
+        <a href="#cta" class="btn-primary">Conhecer a agência</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS -->
+<section id="results">
+  <div class="container">
+    <div class="section-header reveal" style="text-align:center">
+      <span class="tag">Números que impressionam</span>
+      <h2 class="section-title">Resultados que<br/>falam por si</h2>
+    </div>
+    <div class="results-grid">
+      <div class="result-item reveal">
+        <div class="result-glow"></div>
+        <div class="result-num">200<span>+</span></div>
+        <div class="result-label">Projetos entregues</div>
+      </div>
+      <div class="result-item reveal reveal-delay-1">
+        <div class="result-glow"></div>
+        <div class="result-num">8<span>×</span></div>
+        <div class="result-label">ROI médio nas campanhas</div>
+      </div>
+      <div class="result-item reveal reveal-delay-2">
+        <div class="result-glow"></div>
+        <div class="result-num">97<span>%</span></div>
+        <div class="result-label">Taxa de retenção</div>
+      </div>
+      <div class="result-item reveal reveal-delay-3">
+        <div class="result-glow"></div>
+        <div class="result-num">R$50<span>M+</span></div>
+        <div class="result-label">Em faturamento gerado</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="container">
+    <div class="section-header reveal" style="text-align:center">
+      <span class="tag">Como trabalhamos</span>
+      <h2 class="section-title">Do diagnóstico<br/>ao resultado</h2>
+    </div>
+    <div class="process-steps">
+      <div class="step reveal">
+        <div class="step-dot">01</div>
+        <div class="step-title">Diagnóstico</div>
+        <p class="step-desc">Analisamos seu negócio, mercado e concorrência para identificar as melhores oportunidades de crescimento.</p>
+      </div>
+      <div class="step reveal reveal-delay-1">
+        <div class="step-dot">02</div>
+        <div class="step-title">Estratégia</div>
+        <p class="step-desc">Desenvolvemos um plano de ação personalizado com metas claras, canais prioritários e indicadores de sucesso.</p>
+      </div>
+      <div class="step reveal reveal-delay-2">
+        <div class="step-dot">03</div>
+        <div class="step-title">Execução</div>
+        <p class="step-desc">Implementamos com agilidade, testamos hipóteses e otimizamos continuamente para extrair o máximo de cada ação.</p>
+      </div>
+      <div class="step reveal reveal-delay-3">
+        <div class="step-dot">04</div>
+        <div class="step-title">Crescimento</div>
+        <p class="step-desc">Relatórios transparentes, revisões periódicas e escalonamento das estratégias que provam resultado.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="tag">Depoimentos</span>
+      <h2 class="section-title">O que nossos<br/>clientes dizem</h2>
+    </div>
+    <div class="testi-grid">
+
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">"Em 3 meses com a Ruta 12, nosso custo por lead caiu 60% e o volume de oportunidades triplicou. O time é incrivelmente competente e transparente com os dados."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">CM</div>
+          <div>
+            <div class="testi-name">Carlos Mendes</div>
+            <div class="testi-role">CEO — TechFlow Soluções</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card reveal reveal-delay-1">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">"A estratégia de SEO deles foi transformadora. Saímos do zero para primeira página no Google em menos de 6 meses. Hoje o canal orgânico representa 40% das nossas vendas."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">AF</div>
+          <div>
+            <div class="testi-name">Ana Figueiredo</div>
+            <div class="testi-role">Diretora de Marketing — Grupo Nórdico</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">"Parceiros que realmente entendem o negócio. A Ruta 12 não só entrega campanhas, ela pensa junto com a gente na estratégia. Os resultados falam por si: 320% de crescimento em 1 ano."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">RS</div>
+          <div>
+            <div class="testi-name">Rodrigo Souza</div>
+            <div class="testi-role">Fundador — Vitale Health</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card reveal reveal-delay-1">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">"Profissionalismo impecável. Desde o primeiro contato até os relatórios mensais, tudo muito claro e objetivo. Nossa presença digital nunca foi tão forte e consistente."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">MB</div>
+          <div>
+            <div class="testi-name">Mariana Borges</div>
+            <div class="testi-role">CMO — Estúdio Forma</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="container">
+    <div class="cta-inner reveal">
+      <span class="tag">Vamos começar</span>
+      <h2 class="cta-heading">
+        Pronto para<br/>
+        <em>decolar?</em>
+      </h2>
+      <p class="cta-sub">Deixe seu email e um especialista da Ruta 12 entrará em contato para um diagnóstico gratuito do seu marketing digital.</p>
+      <form class="cta-form" onsubmit="handleSubmit(event)">
+        <input type="email" class="cta-input" placeholder="seu@email.com" required />
+        <button type="submit" class="btn-submit">Quero diagnóstico grátis</button>
+      </form>
+      <p class="cta-disclaimer">Sem spam. Sem compromisso. Resposta em até 24h.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <a href="#" class="footer-logo">Ruta <span>12</span> Digital</a>
+      <ul class="footer-links">
+        <li><a href="#services">Serviços</a></li>
+        <li><a href="#about">Sobre</a></li>
+        <li><a href="#results">Resultados</a></li>
+        <li><a href="#cta">Contato</a></li>
+      </ul>
+      <p class="footer-copy">© 2026 Ruta 12 Digital. Todos os direitos reservados.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ── Cursor
+  const cur = document.getElementById('cursor');
+  const ring = document.getElementById('cursor-ring');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+  (function tick() {
+    cur.style.left = mx + 'px'; cur.style.top = my + 'px';
+    rx += (mx - rx) * .15; ry += (my - ry) * .15;
+    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+    requestAnimationFrame(tick);
+  })();
+  document.querySelectorAll('a, button, .service-card, .testi-card').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cur.style.width = '18px'; cur.style.height = '18px';
+      ring.style.width = '52px'; ring.style.height = '52px';
+    });
+    el.addEventListener('mouseleave', () => {
+      cur.style.width = '10px'; cur.style.height = '10px';
+      ring.style.width = '36px'; ring.style.height = '36px';
+    });
+  });
+
+  // ── Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => obs.observe(el));
+
+  // ── Form
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('button');
+    btn.textContent = 'Mensagem enviada ✓';
+    btn.style.background = '#22c55e';
+    btn.disabled = true;
+    e.target.querySelector('input').value = '';
+    setTimeout(() => {
+      btn.textContent = 'Quero diagnóstico grátis';
+      btn.style.background = '';
+      btn.disabled = false;
+    }, 4000);
+  }
+
+  // ── Smooth nav highlight
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let cur2 = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) cur2 = s.id; });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + cur2 ? 'var(--white)' : '';
+    });
+  });
+</script>
+</body>
+</html>
