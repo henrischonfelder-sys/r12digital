@@ -1,0 +1,1557 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escola do Diabetes — Fique Livre da Diabetes Tipo 2</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;0,900;1,800&family=Figtree:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy:        #0a1628;
+            --navy-mid:    #0d1f3c;
+            --blue:        #0066ff;
+            --blue-light:  #3385ff;
+            --green:       #00cc44;
+            --green-dark:  #00aa38;
+            --red:         #ff2222;
+            --white:       #ffffff;
+            --gray-light:  #f3f6fb;
+            --gray:        #e4e9f2;
+            --text-dark:   #0f172a;
+            --text-muted:  #64748b;
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Figtree', sans-serif;
+            color: var(--text-dark);
+            background: var(--white);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .font-display {
+            font-family: 'Barlow Condensed', sans-serif;
+            text-transform: uppercase;
+            line-height: 1;
+        }
+
+        /* ─── URGENCY BAR ─────────────────────────────────────── */
+        .urgency-bar {
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            background: var(--navy);
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .ub-text {
+            color: #fff;
+            font-weight: 700;
+            font-size: 0.88rem;
+            letter-spacing: .4px;
+            white-space: nowrap;
+        }
+        .ub-text .hot { color: var(--red); font-weight: 900; }
+
+        .countdown {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .cd-block {
+            background: rgba(255,255,255,.13);
+            border-radius: 6px;
+            padding: 4px 10px;
+            min-width: 50px;
+            text-align: center;
+        }
+        .cd-num {
+            display: block;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 1.45rem;
+            font-weight: 900;
+            color: #fff;
+            line-height: 1;
+            letter-spacing: 1px;
+        }
+        .cd-lbl {
+            display: block;
+            font-size: .58rem;
+            color: rgba(255,255,255,.6);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 1px;
+        }
+        .cd-sep {
+            color: #fff;
+            font-size: 1.3rem;
+            font-weight: 900;
+            line-height: 1;
+            margin-top: -4px;
+        }
+
+        .btn-ub {
+            background: var(--green);
+            color: #fff;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: .95rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: .8px;
+            padding: 9px 22px;
+            border-radius: 50px;
+            text-decoration: none;
+            white-space: nowrap;
+            transition: background .2s, transform .2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .btn-ub:hover { background: var(--green-dark); transform: scale(1.04); }
+
+        /* ─── GLOBAL BUTTON ──────────────────────────────────── */
+        .btn-cta {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: var(--green);
+            color: #fff;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: .8px;
+            padding: 18px 44px;
+            border-radius: 50px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 8px 30px rgba(0,204,68,.35);
+            transition: background .25s, transform .25s, box-shadow .25s;
+        }
+        .btn-cta:hover {
+            background: var(--green-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 14px 40px rgba(0,204,68,.45);
+        }
+        .btn-cta.lg { font-size: 1.55rem; padding: 22px 52px; }
+
+        /* ─── ANIMATIONS ─────────────────────────────────────── */
+        @keyframes pulse-glow {
+            0%,100% { box-shadow: 0 8px 30px rgba(0,204,68,.35); }
+            50%      { box-shadow: 0 10px 44px rgba(0,204,68,.6); }
+        }
+        .pulse { animation: pulse-glow 2.2s ease-in-out infinite; }
+
+        @keyframes fadeUp {
+            from { opacity:0; transform:translateY(22px); }
+            to   { opacity:1; transform:translateY(0); }
+        }
+
+        /* ─── LAYOUT HELPERS ──────────────────────────────────── */
+        .wrap { max-width: 1020px; margin: 0 auto; }
+
+        .section-tag {
+            display: inline-block;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 700;
+            font-size: .8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 4px 16px;
+            border-radius: 50px;
+            margin-bottom: 14px;
+        }
+        .section-tag.blue  { background: rgba(0,102,255,.1); color: var(--blue); }
+        .section-tag.white { background: rgba(255,255,255,.15); color: #fff; }
+        .section-tag.green { background: rgba(0,204,68,.15); color: var(--green-dark); }
+
+        .section-title {
+            font-size: clamp(2rem, 5vw, 3.6rem);
+            font-weight: 900;
+            margin-bottom: 14px;
+        }
+        .section-title.dark  { color: var(--navy); }
+        .section-title.white { color: #fff; }
+        .section-title.red   { color: var(--red); }
+
+        /* ─── HERO ───────────────────────────────────────────── */
+        .hero {
+            background: var(--white);
+            padding: 72px 20px 56px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -120px; left: -120px;
+            width: 450px; height: 450px;
+            background: radial-gradient(circle, rgba(0,102,255,.06) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -120px; right: -120px;
+            width: 450px; height: 450px;
+            background: radial-gradient(circle, rgba(0,204,68,.05) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .hero > * {
+            animation: fadeUp .6s ease both;
+            position: relative;
+        }
+        .hero > *:nth-child(1) { animation-delay: .1s; }
+        .hero > *:nth-child(2) { animation-delay: .2s; }
+        .hero > *:nth-child(3) { animation-delay: .3s; }
+        .hero > *:nth-child(4) { animation-delay: .4s; }
+        .hero > *:nth-child(5) { animation-delay: .5s; }
+        .hero > *:nth-child(6) { animation-delay: .6s; }
+        .hero > *:nth-child(7) { animation-delay: .7s; }
+
+        .hero h1 {
+            font-size: clamp(3.8rem, 10vw, 8rem);
+            font-weight: 900;
+            color: var(--navy);
+            line-height: .9;
+            margin-bottom: 14px;
+            letter-spacing: -1px;
+        }
+        .hero h1 span { color: var(--blue); display: block; }
+
+        .hero-sub {
+            font-size: clamp(1rem, 2.2vw, 1.3rem);
+            color: var(--text-muted);
+            font-weight: 500;
+            max-width: 540px;
+            margin: 0 auto 16px;
+            line-height: 1.5;
+        }
+        .hero-urgency {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--blue);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 32px;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 36px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 44px;
+        }
+        .stat-item { text-align: center; }
+        .stat-num {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 2.6rem;
+            font-weight: 900;
+            color: var(--navy);
+            line-height: 1;
+        }
+        .stat-lbl {
+            font-size: .82rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        /* ─── IMAGE PLACEHOLDER ───────────────────────────────── */
+        .img-placeholder {
+            background: linear-gradient(135deg, var(--gray) 0%, #dce4f0 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 8px;
+            color: var(--text-muted);
+            font-size: .82rem;
+            text-align: center;
+            padding: 20px;
+        }
+        .img-placeholder .ip-icon { font-size: 2.2rem; opacity: .35; }
+        .img-placeholder strong { color: var(--text-dark); }
+
+        .hero-mockup {
+            max-width: 720px;
+            width: 100%;
+            margin: 40px auto 0;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 24px 80px rgba(10,22,40,.14);
+        }
+
+        /* ─── PAIN SECTION ───────────────────────────────────── */
+        .pain-section {
+            background: var(--navy);
+            padding: 80px 20px;
+            text-align: center;
+        }
+        .pain-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 14px;
+            max-width: 920px;
+            margin: 44px auto 0;
+        }
+        .pain-item {
+            background: rgba(255,255,255,.055);
+            border: 1px solid rgba(255,255,255,.1);
+            border-radius: 12px;
+            padding: 18px 22px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            text-align: left;
+        }
+        .pain-arrow { color: var(--blue); font-size: 1.2rem; flex-shrink: 0; margin-top: 1px; }
+        .pain-item span { color: rgba(255,255,255,.85); font-size: .93rem; line-height: 1.45; }
+
+        /* ─── DOCTOR ─────────────────────────────────────────── */
+        .doctor-section { background: var(--gray-light); padding: 80px 20px; }
+
+        .doctor-grid {
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            gap: 60px;
+            align-items: center;
+            max-width: 1020px;
+            margin: 0 auto;
+        }
+
+        .doctor-img-wrap { position: relative; }
+
+        .doctor-img {
+            width: 100%;
+            aspect-ratio: 3/4;
+            border-radius: 22px;
+            overflow: hidden;
+            box-shadow: 0 24px 64px rgba(10,22,40,.15);
+        }
+
+        .doctor-badge {
+            position: absolute;
+            bottom: -18px;
+            right: -18px;
+            background: var(--blue);
+            color: #fff;
+            border-radius: 16px;
+            padding: 14px 18px;
+            text-align: center;
+            box-shadow: 0 8px 30px rgba(0,102,255,.35);
+        }
+        .doctor-badge strong {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 1.7rem;
+            font-weight: 900;
+            display: block;
+            line-height: 1;
+        }
+        .doctor-badge span { font-size: .7rem; opacity: .9; }
+
+        .doctor-content h2 {
+            font-size: clamp(2rem, 4vw, 2.9rem);
+            font-weight: 900;
+            color: var(--navy);
+            margin-bottom: 18px;
+            line-height: 1.03;
+        }
+        .doctor-content h2 em { font-style: italic; color: var(--blue); }
+
+        .doctor-content p {
+            color: var(--text-muted);
+            font-size: .97rem;
+            line-height: 1.7;
+            margin-bottom: 13px;
+        }
+
+        .credentials { list-style: none; margin: 22px 0; }
+        .credentials li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--gray);
+            font-size: .93rem;
+            color: var(--text-dark);
+        }
+        .credentials li:last-child { border-bottom: none; }
+        .cred-icon {
+            width: 26px; height: 26px;
+            background: var(--blue);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+        .cred-icon svg { width: 13px; height: 13px; fill: none; stroke: #fff; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+
+        /* ─── FOR WHO ─────────────────────────────────────────── */
+        .for-who-section { background: var(--white); padding: 80px 20px; text-align: center; }
+
+        .for-who-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            max-width: 880px;
+            margin: 40px auto 0;
+        }
+        .for-who-card {
+            background: var(--gray-light);
+            border-radius: 22px;
+            padding: 36px 26px;
+            text-align: center;
+            transition: transform .3s, box-shadow .3s;
+        }
+        .for-who-card:hover { transform: translateY(-6px); box-shadow: 0 18px 50px rgba(10,22,40,.1); }
+
+        .fwc-icon {
+            width: 70px; height: 70px;
+            background: linear-gradient(135deg, var(--blue), #0047cc);
+            border-radius: 20px;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 18px;
+        }
+        .fwc-icon svg { width: 34px; height: 34px; fill: none; stroke: #fff; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+        .for-who-card h3 {
+            font-size: 1.25rem;
+            font-weight: 900;
+            color: var(--navy);
+            margin-bottom: 10px;
+        }
+        .for-who-card p { font-size: .88rem; color: var(--text-muted); line-height: 1.55; }
+
+        /* ─── WHAT IS ─────────────────────────────────────────── */
+        .what-section { background: var(--navy); padding: 80px 20px; }
+
+        .what-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            max-width: 1020px;
+            margin: 0 auto;
+        }
+
+        .what-list { list-style: none; margin-top: 26px; }
+        .what-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 14px 0;
+            border-bottom: 1px solid rgba(255,255,255,.08);
+            color: rgba(255,255,255,.85);
+            font-size: .97rem;
+            line-height: 1.45;
+        }
+        .what-list li:last-child { border-bottom: none; }
+        .wl-icon {
+            width: 25px; height: 25px;
+            background: var(--blue);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0; margin-top: 1px;
+        }
+        .wl-icon svg { width: 12px; height: 12px; fill: none; stroke: #fff; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+
+        /* ─── INCLUDES ───────────────────────────────────────── */
+        .includes-section { background: var(--gray-light); padding: 80px 20px; text-align: center; }
+
+        .includes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 14px;
+            max-width: 1020px;
+            margin: 40px auto 0;
+        }
+        .include-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 22px 18px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(10,22,40,.07);
+            transition: transform .2s;
+        }
+        .include-card:hover { transform: translateY(-4px); }
+        .ic-icon {
+            width: 52px; height: 52px;
+            background: rgba(0,102,255,.08);
+            border-radius: 13px;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 12px;
+        }
+        .ic-icon svg { width: 26px; height: 26px; fill: none; stroke: var(--blue); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+        .include-card h4 {
+            font-family: 'Figtree', sans-serif;
+            font-weight: 700;
+            font-size: .9rem;
+            color: var(--navy);
+            text-transform: none;
+            line-height: 1.3;
+        }
+
+        /* ─── MODULES ─────────────────────────────────────────── */
+        .modules-section { background: var(--white); padding: 80px 20px; text-align: center; }
+
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
+            max-width: 1020px;
+            margin: 40px auto 0;
+        }
+        .module-card {
+            background: #fff;
+            border: 2px solid var(--gray);
+            border-radius: 20px;
+            padding: 28px 22px;
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+            transition: border-color .25s, box-shadow .25s, transform .25s;
+        }
+        .module-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--blue), var(--blue-light));
+        }
+        .module-card:hover {
+            border-color: var(--blue);
+            box-shadow: 0 10px 44px rgba(0,102,255,.13);
+            transform: translateY(-4px);
+        }
+        .module-num {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 3rem;
+            font-weight: 900;
+            color: rgba(0,102,255,.1);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+        .module-card h3 {
+            font-size: 1rem;
+            font-weight: 900;
+            color: var(--navy);
+            text-transform: uppercase;
+            letter-spacing: .4px;
+            line-height: 1.25;
+        }
+        .module-card p {
+            font-size: .84rem;
+            color: var(--text-muted);
+            margin-top: 8px;
+            line-height: 1.55;
+        }
+        .module-arrow { color: var(--blue); font-size: 1.1rem; display: block; margin-top: 14px; font-weight: 700; }
+
+        /* ─── TESTIMONIALS ───────────────────────────────────── */
+        .testimonials-section { background: var(--navy); padding: 80px 20px; text-align: center; }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            max-width: 900px;
+            margin: 40px auto 0;
+        }
+        .testimonial-card {
+            background: rgba(255,255,255,.06);
+            border: 1px solid rgba(255,255,255,.1);
+            border-radius: 20px;
+            padding: 26px;
+            text-align: left;
+        }
+        .t-img {
+            width: 100%;
+            aspect-ratio: 16/9;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 18px;
+        }
+        .stars { color: #fbbf24; font-size: 1rem; margin-bottom: 10px; letter-spacing: 2px; }
+        .t-text {
+            color: rgba(255,255,255,.82);
+            font-size: .92rem;
+            line-height: 1.65;
+            margin-bottom: 16px;
+            font-style: italic;
+        }
+        .t-author { display: flex; align-items: center; gap: 12px; }
+        .t-avatar {
+            width: 42px; height: 42px;
+            border-radius: 50%;
+            overflow: hidden;
+            background: rgba(255,255,255,.1);
+            flex-shrink: 0;
+        }
+        .t-info strong { display: block; color: #fff; font-weight: 700; font-size: .88rem; }
+        .t-info span { color: rgba(255,255,255,.45); font-size: .78rem; }
+
+        /* ─── OFFER ──────────────────────────────────────────── */
+        .offer-section { background: var(--gray-light); padding: 80px 20px; }
+
+        .offer-card {
+            background: var(--navy);
+            border-radius: 28px;
+            max-width: 920px;
+            margin: 0 auto;
+            overflow: hidden;
+            box-shadow: 0 28px 80px rgba(10,22,40,.28);
+        }
+        .offer-card-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+        .offer-left {
+            padding: 48px 40px;
+            border-right: 1px solid rgba(255,255,255,.1);
+        }
+        .offer-left h3 {
+            color: #fff;
+            font-size: 1.5rem;
+            font-weight: 900;
+            margin-bottom: 22px;
+            text-transform: uppercase;
+        }
+        .offer-includes { list-style: none; }
+        .offer-includes li {
+            display: flex;
+            align-items: flex-start;
+            gap: 11px;
+            padding: 9px 0;
+            border-bottom: 1px solid rgba(255,255,255,.07);
+            color: rgba(255,255,255,.85);
+            font-size: .88rem;
+            line-height: 1.35;
+        }
+        .offer-includes li:last-child { border-bottom: none; }
+        .oi-check { color: var(--green); font-size: .95rem; flex-shrink: 0; margin-top: 1px; font-weight: 900; }
+
+        .offer-right {
+            padding: 48px 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .price-from { color: rgba(255,255,255,.45); font-size: .85rem; margin-bottom: 3px; }
+        .price-original {
+            color: var(--red);
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 1.9rem;
+            font-weight: 700;
+            text-decoration: line-through;
+            margin-bottom: 10px;
+        }
+        .price-label { color: rgba(255,255,255,.6); font-size: .85rem; margin-bottom: 4px; }
+        .price-main { line-height: 1; margin-bottom: 4px; }
+        .price-x {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: rgba(255,255,255,.8);
+            display: block;
+        }
+        .price-value {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 4.2rem;
+            font-weight: 900;
+            color: #fff;
+            display: block;
+            line-height: 1;
+        }
+        .price-or { color: rgba(255,255,255,.4); font-size: .82rem; margin: 10px 0 3px; }
+        .price-avista {
+            color: var(--green);
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 22px;
+        }
+
+        .payment-logos {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 18px;
+        }
+        .pay-logo {
+            background: rgba(255,255,255,.1);
+            border-radius: 7px;
+            padding: 7px 13px;
+            font-size: .72rem;
+            color: rgba(255,255,255,.65);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* ─── GUARANTEE ──────────────────────────────────────── */
+        .guarantee-section { background: var(--navy); padding: 80px 20px; }
+
+        .guarantee-inner {
+            max-width: 880px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .seal-wrap { width: 200px; flex-shrink: 0; }
+        .seal-circle {
+            width: 200px; height: 200px;
+            border-radius: 50%;
+            border: 5px solid rgba(0,204,68,.4);
+            background: rgba(0,204,68,.07);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 18px;
+            position: relative;
+        }
+        .seal-circle::before {
+            content: '';
+            position: absolute; inset: -8px;
+            border-radius: 50%;
+            border: 2px dashed rgba(0,204,68,.28);
+        }
+        .seal-num {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 5.2rem;
+            font-weight: 900;
+            color: var(--green);
+            line-height: 1;
+        }
+        .seal-txt {
+            font-family: 'Barlow Condensed', sans-serif;
+            color: #fff;
+            font-size: .95rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            line-height: 1.1;
+        }
+        .seal-sub { color: rgba(255,255,255,.5); font-size: .68rem; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+
+        .guarantee-content h2 {
+            font-size: clamp(1.8rem, 3.5vw, 2.9rem);
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 16px;
+            line-height: 1.05;
+        }
+        .guarantee-content h2 span { color: var(--green); }
+        .guarantee-content p {
+            color: rgba(255,255,255,.72);
+            font-size: .97rem;
+            line-height: 1.7;
+        }
+        .guarantee-content p + p { margin-top: 12px; }
+        .guarantee-content .highlight-p { color: var(--green); font-weight: 700; font-size: 1rem; }
+
+        /* ─── FAQ ─────────────────────────────────────────────── */
+        .faq-section { background: var(--gray-light); padding: 80px 20px; }
+
+        .faq-inner { max-width: 760px; margin: 0 auto; text-align: center; }
+
+        .faq-list { margin-top: 40px; text-align: left; }
+
+        .faq-item {
+            background: #fff;
+            border-radius: 14px;
+            margin-bottom: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(10,22,40,.06);
+        }
+        .faq-btn {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 22px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            text-align: left;
+            gap: 16px;
+        }
+        .faq-btn span { font-family: 'Figtree', sans-serif; font-weight: 700; font-size: .98rem; color: var(--navy); }
+        .faq-tog {
+            width: 32px; height: 32px;
+            border-radius: 50%;
+            background: var(--blue);
+            color: #fff;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+            font-size: 1.4rem;
+            font-weight: 300;
+            line-height: 1;
+            transition: transform .3s ease;
+        }
+        .faq-item.open .faq-tog { transform: rotate(45deg); }
+        .faq-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height .4s ease;
+        }
+        .faq-item.open .faq-body { max-height: 300px; }
+        .faq-inner-body {
+            padding: 0 22px 20px;
+            color: var(--text-muted);
+            font-size: .92rem;
+            line-height: 1.7;
+        }
+
+        /* ─── SUPPORT ─────────────────────────────────────────── */
+        .support-section { background: var(--white); padding: 80px 20px; text-align: center; }
+
+        .support-card {
+            background: #fff;
+            border: 2px solid var(--gray);
+            border-radius: 26px;
+            max-width: 540px;
+            margin: 0 auto;
+            padding: 46px 38px;
+            box-shadow: 0 8px 40px rgba(10,22,40,.08);
+        }
+        .wa-icon {
+            width: 70px; height: 70px;
+            background: #25D366;
+            border-radius: 20px;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 18px;
+        }
+        .wa-icon svg { width: 38px; height: 38px; fill: #fff; }
+
+        .support-card h3 { font-size: 1.75rem; font-weight: 900; color: var(--navy); margin-bottom: 10px; }
+        .support-card p { color: var(--text-muted); font-size: .92rem; line-height: 1.6; margin-bottom: 26px; }
+
+        .btn-wa {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #25D366;
+            color: #fff;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: .8px;
+            padding: 15px 34px;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: background .25s, transform .25s;
+            box-shadow: 0 6px 22px rgba(37,211,102,.32);
+        }
+        .btn-wa:hover { background: #1cb658; transform: translateY(-2px); }
+        .btn-wa svg { width: 20px; height: 20px; fill: #fff; }
+
+        /* ─── FINAL CTA ───────────────────────────────────────── */
+        .final-cta { background: var(--navy); padding: 80px 20px; text-align: center; }
+        .final-cta h2 {
+            font-size: clamp(2.6rem, 7vw, 5.5rem);
+            font-weight: 900;
+            color: #fff;
+            line-height: .93;
+            margin-bottom: 18px;
+        }
+        .final-cta h2 span { color: var(--green); }
+        .final-cta > .wrap > p {
+            color: rgba(255,255,255,.65);
+            font-size: 1.05rem;
+            max-width: 480px;
+            margin: 0 auto 34px;
+            line-height: 1.6;
+        }
+        .final-trust {
+            margin-top: 18px;
+            font-size: .82rem;
+            color: rgba(255,255,255,.38);
+        }
+
+        /* ─── FOOTER ──────────────────────────────────────────── */
+        footer {
+            background: #060d1a;
+            padding: 26px 20px;
+            text-align: center;
+        }
+        footer p { color: rgba(255,255,255,.3); font-size: .82rem; }
+        footer p + p { margin-top: 6px; opacity: .7; }
+
+        /* ─── RESPONSIVE ──────────────────────────────────────── */
+        @media (max-width: 860px) {
+            .doctor-grid { grid-template-columns: 1fr; gap: 36px; }
+            .doctor-badge { position: static; display: inline-block; margin-top: 14px; }
+            .what-grid { grid-template-columns: 1fr; gap: 36px; }
+            .offer-card-inner { grid-template-columns: 1fr; }
+            .offer-left { border-right: none; border-bottom: 1px solid rgba(255,255,255,.1); }
+            .guarantee-inner { grid-template-columns: 1fr; gap: 32px; }
+            .seal-wrap { margin: 0 auto; }
+        }
+
+        @media (max-width: 600px) {
+            .urgency-bar { flex-direction: column; gap: 8px; padding: 12px; }
+            .btn-cta.lg { font-size: 1.25rem; padding: 18px 30px; }
+            .offer-left, .offer-right { padding: 32px 24px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ URGENCY BAR ━━━━━━━━━ -->
+<div class="urgency-bar">
+    <div class="ub-text">
+        <span class="hot">⚡ ÚLTIMOS DIAS!</span>&nbsp; O DESCONTO DE 50% TERMINA EM:
+    </div>
+    <div class="countdown">
+        <div class="cd-block">
+            <span class="cd-num" id="cd-h">00</span>
+            <span class="cd-lbl">Horas</span>
+        </div>
+        <span class="cd-sep">:</span>
+        <div class="cd-block">
+            <span class="cd-num" id="cd-m">00</span>
+            <span class="cd-lbl">Min</span>
+        </div>
+        <span class="cd-sep">:</span>
+        <div class="cd-block">
+            <span class="cd-num" id="cd-s">00</span>
+            <span class="cd-lbl">Seg</span>
+        </div>
+    </div>
+    <a href="https://pay.hub.la/oK936T6wcb0lfbJuHily" class="btn-ub">ENTRAR COM DESCONTO →</a>
+</div>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ HERO ━━━━━━━━━━━━━ -->
+<section class="hero">
+    <div class="section-tag blue">Programa Médico Especializado · Dr. Guilherme Marquezine</div>
+
+    <h1>
+        FIQUE LIVRE DA
+        <span>DIABETES TIPO 2</span>
+    </h1>
+
+    <p class="hero-sub">e viva uma vida com mais saúde, vitalidade e longevidade</p>
+
+    <p class="hero-urgency">Hoje é o último dia para garantir sua vaga com 50% off</p>
+
+    <a href="https://pay.hub.la/oK936T6wcb0lfbJuHily" class="btn-cta lg pulse">
+        QUERO PARTICIPAR →
+    </a>
+
+    <!-- PLACEHOLDER: Imagem principal do hero — foto do Dr. Marquezine ou banner da Escola do Diabetes -->
+    <!-- Dimensões recomendadas: 1440 × 500px -->
+    <div class="hero-mockup">
+        <div class="img-placeholder" style="height:380px;">
+            <div class="ip-icon">📸</div>
+            <strong>Banner Principal — Escola do Diabetes</strong>
+            <span>Foto do Dr. Marquezine ou imagem da plataforma · 1440 × 500 px</span>
+        </div>
+    </div>
+
+    <div class="hero-stats">
+        <div class="stat-item">
+            <div class="stat-num">+5.000</div>
+            <div class="stat-lbl">Alunos Transformados</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-num">97%</div>
+            <div class="stat-lbl">Satisfação dos Alunos</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-num">7 Dias</div>
+            <div class="stat-lbl">Garantia Incondicional</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-num">50%</div>
+            <div class="stat-lbl">Desconto por Tempo Limitado</div>
+        </div>
+    </div>
+</section>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ PAIN ━━━━━━━━━━━━━ -->
+<section class="pain-section">
+    <div class="wrap">
+        <h2 class="section-title red">VOCÊ SE IDENTIFICA COM ISSO?</h2>
+        <p style="color:rgba(255,255,255,.72);font-size:1.05rem;max-width:600px;margin:12px auto 0;line-height:1.6;">
+            Milhões de brasileiros convivem com a diabetes tipo 2 sem saber que é possível controlar e até reverter o quadro com ciência e método.
+        </p>
+        <div class="pain-grid">
+            <div class="pain-item">
+                <span class="pain-arrow">→</span>
+                <span>Glicose alta mesmo tomando remédios todos os dias</span>
+            </div>
+            <div class="pain-item">
+                <span class="pain-arrow">→</span>
+                <span>Cansaço constante, falta de energia e disposição</span>
+            </div>
+            <div class="pain-item">
+                <span class="pain-arrow">→</span>
+                <span>Medo das complicações: cegueira, amputação, doenças renais</span>
+            </div>
+            <div class="pain-item">
+                <span class="pain-arrow">→</span>
+                <span>Confusão sobre o que pode ou não comer no dia a dia</span>
+            </div>
+            <div class="pain-item">
+                <span class="pain-arrow">→</span>
+                <span>Dependência crescente de medicamentos e insulina</span>
+            </div>
+            <div class="pain-item">
+                <span class="pain-arrow">→</span>
+                <span>Sentimento de que não há saída ou solução definitiva</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ DOCTOR ━━━━━━━━━━━━━ -->
+<section class="doctor-section">
+    <div class="doctor-grid">
+
+        <div class="doctor-img-wrap">
+            <!-- PLACEHOLDER: Foto profissional do Dr. Guilherme Marquezine -->
+            <!-- Dimensões recomendadas: 480 × 640 px -->
+            <div class="doctor-img">
+                <div class="img-placeholder" style="height:100%;min-height:480px;">
+                    <div class="ip-icon">👨‍⚕️</div>
+                    <strong>Dr. Guilherme Marquezine</strong>
+                    <span>Foto profissional · 480 × 640 px</span>
+                </div>
+            </div>
+            <div class="doctor-badge">
+                <strong>+15</strong>
+                <span>anos de experiência</span>
+            </div>
+        </div>
+
+        <div class="doctor-content">
+            <div class="section-tag blue">Conheça o Dr. Marquezine</div>
+            <h2>O MÉDICO QUE VIVEU NA <em>PRÓPRIA PELE</em></h2>
+            <p>Dr. Guilherme Marquezine é médico endocrinologista, professor de Medicina na Universidade Estadual de Londrina (UEL) e Doutor pelo renomado Incor de São Paulo.</p>
+            <p>Mesmo cuidando da saúde e sendo especialista na área, foi diagnosticado com pré-diabetes. Em vez de aceitar a situação passivamente, estudou profundamente os mecanismos de reversão e aplicou em si mesmo.</p>
+            <p>Os resultados foram tão expressivos que ele passou a aplicar o método na sua tia, que <strong>perdeu mais de 20 kg e normalizou completamente os níveis de glicose</strong>. Hoje, compartilha esse conhecimento com milhares de alunos na Escola do Diabetes.</p>
+            <ul class="credentials">
+                <li>
+                    <div class="cred-icon">
+                        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                    </div>
+                    Formado em Medicina em Londrina
+                </li>
+                <li>
+                    <div class="cred-icon">
+                        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                    </div>
+                    Residência em Endocrinologia — Hospital das Clínicas de São Paulo
+                </li>
+                <li>
+                    <div class="cred-icon">
+                        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                    </div>
+                    Doutorado no Incor — Instituto do Coração de São Paulo
+                </li>
+                <li>
+                    <div class="cred-icon">
+                        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                    </div>
+                    Professor de Medicina na UEL (Universidade Estadual de Londrina)
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ FOR WHO ━━━━━━━━━━━━━━ -->
+<section class="for-who-section">
+    <div class="wrap">
+        <div class="section-tag blue">Para quem é?</div>
+        <h2 class="section-title dark">ESTE PROGRAMA É PARA VOCÊ SE…</h2>
+        <div class="for-who-grid">
+            <div class="for-who-card">
+                <div class="fwc-icon">
+                    <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                </div>
+                <h3>Você tem Pré-Diabetes</h3>
+                <p>Sua glicemia está elevada e você quer reverter antes que evolua para diabetes tipo 2 declarado.</p>
+            </div>
+            <div class="for-who-card">
+                <div class="fwc-icon">
+                    <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                </div>
+                <h3>Familiar de Diabético</h3>
+                <p>Você quer ajudar um familiar a controlar melhor a doença e ter mais qualidade de vida.</p>
+            </div>
+            <div class="for-who-card">
+                <div class="fwc-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                </div>
+                <h3>Diabético Tipo 2</h3>
+                <p>Você tem diabetes tipo 2 e quer reduzir medicações, controlar a glicose e reverter o quadro.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ WHAT IS ━━━━━━━━━━━━━━ -->
+<section class="what-section">
+    <div class="what-grid">
+        <div>
+            <div class="section-tag white">O que é a Escola do Diabetes</div>
+            <h2 class="section-title white">CONTROLE E REVERSÃO COM CIÊNCIA E PRÁTICA</h2>
+            <ul class="what-list">
+                <li>
+                    <div class="wl-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+                    Ciência e prática para controlar e reverter a diabetes tipo 2
+                </li>
+                <li>
+                    <div class="wl-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+                    Ajustes alimentares baseados em evidências científicas comprovadas
+                </li>
+                <li>
+                    <div class="wl-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+                    Controle metabólico completo: glicose, insulina e hormônios
+                </li>
+                <li>
+                    <div class="wl-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+                    Suporte contínuo com comunidade ativa e médico especialista
+                </li>
+                <li>
+                    <div class="wl-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+                    Plataforma própria com app exclusivo e material de apoio
+                </li>
+            </ul>
+        </div>
+        <div>
+            <!-- PLACEHOLDER: Screenshot da plataforma ou mockup do aplicativo da Escola do Diabetes -->
+            <!-- Dimensões recomendadas: 480 × 540 px -->
+            <div style="border-radius:22px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.3);">
+                <div class="img-placeholder" style="height:460px;">
+                    <div class="ip-icon">📱</div>
+                    <strong>Screenshot da Plataforma / App</strong>
+                    <span>480 × 540 px</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ INCLUDES ━━━━━━━━━━━━━━ -->
+<section class="includes-section">
+    <div class="wrap">
+        <div class="section-tag blue">O que está incluso</div>
+        <h2 class="section-title dark">TUDO QUE VOCÊ RECEBE</h2>
+        <div class="includes-grid">
+            <div class="include-card">
+                <div class="ic-icon">
+                    <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                </div>
+                <h4>Encontros ao Vivo</h4>
+            </div>
+            <div class="include-card">
+                <div class="ic-icon">
+                    <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                </div>
+                <h4>Comunidade Exclusiva</h4>
+            </div>
+            <div class="include-card">
+                <div class="ic-icon">
+                    <svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+                </div>
+                <h4>Cursos Extras de Nutrição</h4>
+            </div>
+            <div class="include-card">
+                <div class="ic-icon">
+                    <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                </div>
+                <h4>Curso de Monitoramento da Glicose</h4>
+            </div>
+            <div class="include-card">
+                <div class="ic-icon">
+                    <svg viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></svg>
+                </div>
+                <h4>Curso sobre Remédios para Diabetes</h4>
+            </div>
+            <div class="include-card">
+                <div class="ic-icon">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                </div>
+                <h4>Acesso por 1 Ano Completo</h4>
+            </div>
+            <div class="include-card">
+                <div class="ic-icon">
+                    <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                </div>
+                <h4>Plataforma com App Próprio</h4>
+            </div>
+            <div class="include-card">
+                <div class="ic-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                </div>
+                <h4>7 Dias de Garantia Incondicional</h4>
+            </div>
+            <div class="include-card">
+                <div class="ic-icon">
+                    <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                </div>
+                <h4>Material de Apoio Exclusivo</h4>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ MODULES ━━━━━━━━━━━━━━━ -->
+<section class="modules-section">
+    <div class="wrap">
+        <div class="section-tag blue">Conteúdo do Programa</div>
+        <h2 class="section-title dark">OS 4 MÓDULOS DA ESCOLA DO DIABETES</h2>
+        <p style="color:var(--text-muted);font-size:1rem;max-width:580px;margin:12px auto 0;line-height:1.6;">
+            Um currículo médico completo para você entender, controlar e reverter a diabetes de verdade.
+        </p>
+        <div class="modules-grid">
+            <div class="module-card">
+                <div class="module-num">01</div>
+                <h3>Tratamento e Quadro Clínico</h3>
+                <p>Entenda o diagnóstico, os exames necessários e as opções de tratamento disponíveis para diabetes tipo 2.</p>
+                <!-- PLACEHOLDER: Imagem do Módulo 1 · 400 × 220 px -->
+                <span class="module-arrow">→</span>
+            </div>
+            <div class="module-card">
+                <div class="module-num">02</div>
+                <h3>Nutrição e Controle da Glicose</h3>
+                <p>Descubra como a alimentação impacta diretamente na sua glicemia e aprenda a comer de forma estratégica.</p>
+                <!-- PLACEHOLDER: Imagem do Módulo 2 · 400 × 220 px -->
+                <span class="module-arrow">→</span>
+            </div>
+            <div class="module-card">
+                <div class="module-num">03</div>
+                <h3>Metabolismo, Hormônios e Insulina</h3>
+                <p>Compreenda o papel da insulina, como restaurar a sensibilidade hormonal e recuperar seu metabolismo.</p>
+                <!-- PLACEHOLDER: Imagem do Módulo 3 · 400 × 220 px -->
+                <span class="module-arrow">→</span>
+            </div>
+            <div class="module-card">
+                <div class="module-num">04</div>
+                <h3>Esteatose Hepática, Envelhecimento e Plano Prático</h3>
+                <p>Protocolo prático completo para aplicar no seu dia a dia e obter resultados reais e duradouros.</p>
+                <!-- PLACEHOLDER: Imagem do Módulo 4 · 400 × 220 px -->
+                <span class="module-arrow">→</span>
+            </div>
+        </div>
+        <div style="text-align:center;margin-top:48px;">
+            <a href="https://pay.hub.la/oK936T6wcb0lfbJuHily" class="btn-cta">QUERO ACESSO AOS MÓDULOS →</a>
+        </div>
+    </div>
+</section>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ TESTIMONIALS ━━━━━━━━━━━━━ -->
+<section class="testimonials-section">
+    <div class="wrap">
+        <div class="section-tag white">Resultados Reais</div>
+        <h2 class="section-title white">QUEM JÁ TRANSFORMOU SUA VIDA</h2>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <!-- PLACEHOLDER: Print do depoimento de Antonio Custodio (captura de tela ou foto) · 480 × 270 px -->
+                <div class="t-img">
+                    <div class="img-placeholder" style="height:100%;">
+                        <div class="ip-icon">💬</div>
+                        <strong>Print — Antonio Custodio de Santos</strong>
+                        <span>Depoimento em vídeo ou screenshot · 480 × 270 px</span>
+                    </div>
+                </div>
+                <div class="stars">★★★★★</div>
+                <p class="t-text">
+                    "Reduzi minha medicação de 2 comprimidos para meio comprimido por dia! Minha hemoglobina glicada está completamente sob controle. O Dr. Marquezine mudou minha vida."
+                </p>
+                <div class="t-author">
+                    <div class="t-avatar">
+                        <!-- PLACEHOLDER: Foto do Antonio · 60 × 60 px -->
+                        <div class="img-placeholder" style="height:42px;font-size:.6rem;">👤</div>
+                    </div>
+                    <div class="t-info">
+                        <strong>Antonio Custodio de Santos</strong>
+                        <span>São Paulo, SP</span>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <!-- PLACEHOLDER: Print do depoimento de Valdezi Queiroz · 480 × 270 px -->
+                <div class="t-img">
+                    <div class="img-placeholder" style="height:100%;">
+                        <div class="ip-icon">💬</div>
+                        <strong>Print — Valdezi Queiroz</strong>
+                        <span>Depoimento em vídeo ou screenshot · 480 × 270 px</span>
+                    </div>
+                </div>
+                <div class="stars">★★★★★</div>
+                <p class="t-text">
+                    "30 anos convivendo com diabetes e finalmente consegui reduzir a insulina! Seguindo as orientações do Dr. Marquezine, meus resultados melhoraram muito. Obrigada de coração!"
+                </p>
+                <div class="t-author">
+                    <div class="t-avatar">
+                        <!-- PLACEHOLDER: Foto da Valdezi · 60 × 60 px -->
+                        <div class="img-placeholder" style="height:42px;font-size:.6rem;">👤</div>
+                    </div>
+                    <div class="t-info">
+                        <strong>Valdezi Queiroz</strong>
+                        <span>Interior da Bahia, BA</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ OFFER ━━━━━━━━━━━━━━━━ -->
+<section class="offer-section">
+    <div class="wrap">
+        <div style="text-align:center;margin-bottom:36px;">
+            <div class="section-tag green">Oferta por Tempo Limitado</div>
+            <h2 class="section-title dark">GARANTA SEU ACESSO COM 50% OFF</h2>
+        </div>
+        <div class="offer-card">
+            <div class="offer-card-inner">
+                <div class="offer-left">
+                    <h3>Tudo isso está incluso:</h3>
+                    <ul class="offer-includes">
+                        <li><span class="oi-check">✓</span> Encontros ao Vivo com Dr. Marquezine</li>
+                        <li><span class="oi-check">✓</span> Comunidade Exclusiva de Alunos</li>
+                        <li><span class="oi-check">✓</span> Cursos Extras de Nutrição</li>
+                        <li><span class="oi-check">✓</span> Curso de Monitoramento da Glicose</li>
+                        <li><span class="oi-check">✓</span> Curso sobre Remédios para Diabetes</li>
+                        <li><span class="oi-check">✓</span> Acesso por 1 Ano Completo</li>
+                        <li><span class="oi-check">✓</span> Plataforma com App Próprio</li>
+                        <li><span class="oi-check">✓</span> Aulas ao Vivo Gravadas</li>
+                        <li><span class="oi-check">✓</span> Material de Apoio Exclusivo</li>
+                        <li><span class="oi-check">✓</span> 7 Dias de Garantia Incondicional</li>
+                    </ul>
+                </div>
+                <div class="offer-right">
+                    <div class="price-from">De:</div>
+                    <div class="price-original">R$ 310,00 / mês</div>
+                    <div class="price-label">Por apenas:</div>
+                    <div class="price-main">
+                        <span class="price-x">12x de</span>
+                        <span class="price-value">R$155</span>
+                    </div>
+                    <div class="price-or">ou</div>
+                    <div class="price-avista">R$ 1.498,70 à vista</div>
+                    <a href="https://pay.hub.la/oK936T6wcb0lfbJuHily" class="btn-cta pulse" style="width:100%;font-size:1.1rem;padding:18px 20px;justify-content:center;">
+                        QUERO GARANTIR MINHA VAGA →
+                    </a>
+                    <div class="payment-logos">
+                        <div class="pay-logo">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+                            Cartão
+                        </div>
+                        <div class="pay-logo">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/></svg>
+                            Boleto
+                        </div>
+                        <div class="pay-logo">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                            Pix
+                        </div>
+                        <div class="pay-logo">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="2"/></svg>
+                            PayPal
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ GUARANTEE ━━━━━━━━━━━━━━━ -->
+<section class="guarantee-section">
+    <div class="guarantee-inner">
+        <div class="seal-wrap">
+            <div class="seal-circle">
+                <span class="seal-num">07</span>
+                <span class="seal-txt">DIAS<br>RISCO<br>ZERO</span>
+                <span class="seal-sub">Garantia Total</span>
+            </div>
+        </div>
+        <div class="guarantee-content">
+            <div class="section-tag white">Garantia Incondicional</div>
+            <h2>SEM RISCO.<br><span>SEM PERGUNTAS.</span><br>SEM COMPLICAÇÕES.</h2>
+            <p>Minha missão é impactar positivamente a vida dos meus pacientes e alunos. Por isso, ofereço 7 dias de garantia incondicional.</p>
+            <p>Se em até 7 dias após sua inscrição você decidir que a Escola do Diabetes não é para você, basta solicitar o reembolso e devolveremos <strong style="color:#fff;">100% do seu investimento</strong> — sem perguntas, sem complicações, sem burocracia.</p>
+            <p class="highlight-p">O risco é 100% nosso. O resultado é 100% seu.</p>
+            <a href="https://pay.hub.la/oK936T6wcb0lfbJuHily" class="btn-cta" style="margin-top:24px;">QUERO ENTRAR SEM RISCO →</a>
+        </div>
+    </div>
+</section>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ FAQ ━━━━━━━━━━━━━━━━━ -->
+<section class="faq-section">
+    <div class="faq-inner">
+        <div class="section-tag blue">Dúvidas Frequentes</div>
+        <h2 class="section-title dark">PERGUNTAS FREQUENTES</h2>
+        <div class="faq-list">
+
+            <div class="faq-item">
+                <button class="faq-btn" onclick="toggleFaq(this)">
+                    <span>O programa funciona para qualquer tipo de diabetes?</span>
+                    <div class="faq-tog">+</div>
+                </button>
+                <div class="faq-body">
+                    <div class="faq-inner-body">
+                        A Escola do Diabetes é focada principalmente na diabetes tipo 2 e pré-diabetes. Para diabetes tipo 1, o programa pode fornecer informações valiosas sobre nutrição e estilo de vida, mas o protocolo de reversão é direcionado ao tipo 2. Em caso de dúvida, consulte seu médico.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-btn" onclick="toggleFaq(this)">
+                    <span>Preciso parar meus medicamentos para participar?</span>
+                    <div class="faq-tog">+</div>
+                </button>
+                <div class="faq-body">
+                    <div class="faq-inner-body">
+                        Não! Nunca interrompa seus medicamentos sem orientação médica. O programa ensina como, com acompanhamento profissional, é possível reduzir gradualmente a dependência de medicamentos à medida que os resultados aparecem. Qualquer ajuste deve ser feito junto ao seu médico.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-btn" onclick="toggleFaq(this)">
+                    <span>Quanto tempo por dia preciso dedicar ao programa?</span>
+                    <div class="faq-tog">+</div>
+                </button>
+                <div class="faq-body">
+                    <div class="faq-inner-body">
+                        O programa foi desenvolvido para pessoas com rotina agitada. As aulas são gravadas e você assiste no seu ritmo, quando e onde quiser, pelo app. Dedicar entre 20 e 30 minutos por dia já é suficiente para absorver o conteúdo e aplicar as mudanças necessárias.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-btn" onclick="toggleFaq(this)">
+                    <span>Como acesso as aulas ao vivo?</span>
+                    <div class="faq-tog">+</div>
+                </button>
+                <div class="faq-body">
+                    <div class="faq-inner-body">
+                        Após a inscrição, você recebe acesso imediato à plataforma da Escola do Diabetes e ao app. Os encontros ao vivo são comunicados antecipadamente pela comunidade e via e-mail. Caso não consiga participar ao vivo, a gravação fica disponível na plataforma.
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-btn" onclick="toggleFaq(this)">
+                    <span>E se eu não conseguir resultado?</span>
+                    <div class="faq-tog">+</div>
+                </button>
+                <div class="faq-body">
+                    <div class="faq-inner-body">
+                        Você tem 7 dias de garantia incondicional. Se por qualquer motivo sentir que o programa não é para você nesse período, basta solicitar o reembolso e devolveremos 100% do seu investimento, sem perguntas. Nosso suporte está disponível no WhatsApp para ajudar em qualquer dificuldade.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ SUPPORT ━━━━━━━━━━━━━━━ -->
+<section class="support-section">
+    <div class="wrap">
+        <div style="text-align:center;margin-bottom:32px;">
+            <div class="section-tag blue">Suporte</div>
+            <h2 class="section-title dark">PRECISA DE AJUDA?</h2>
+        </div>
+        <div class="support-card">
+            <div class="wa-icon">
+                <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.132.558 4.13 1.535 5.863L.057 23.557a.5.5 0 00.609.61l5.753-1.503A11.946 11.946 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22a9.943 9.943 0 01-5.058-1.379l-.362-.216-3.753.981.999-3.659-.236-.375A9.944 9.944 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+            </div>
+            <h3>Fale Conosco pelo WhatsApp</h3>
+            <p>Nossa equipe está pronta para tirar todas as suas dúvidas sobre o programa, formas de pagamento e acesso à plataforma.</p>
+            <a href="https://bit.ly/TimeDeSuporte_Escola2" target="_blank" rel="noopener" class="btn-wa">
+                <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.132.558 4.13 1.535 5.863L.057 23.557a.5.5 0 00.609.61l5.753-1.503A11.946 11.946 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22a9.943 9.943 0 01-5.058-1.379l-.362-.216-3.753.981.999-3.659-.236-.375A9.944 9.944 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+                FALAR COM SUPORTE
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ FINAL CTA ━━━━━━━━━━━━━━ -->
+<section class="final-cta">
+    <div class="wrap">
+        <div class="section-tag white">Última Chance</div>
+        <h2>SUA NOVA VIDA<br>COMEÇA <span>HOJE</span></h2>
+        <p>Não deixe para amanhã o que pode transformar sua saúde agora. O desconto de 50% está acabando.</p>
+        <a href="https://pay.hub.la/oK936T6wcb0lfbJuHily" class="btn-cta lg pulse">
+            QUERO PARTICIPAR COM 50% OFF →
+        </a>
+        <p class="final-trust">🔒 Compra 100% segura &nbsp;·&nbsp; 7 dias de garantia &nbsp;·&nbsp; Acesso imediato</p>
+    </div>
+</section>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ FOOTER ━━━━━━━━━━━━━━━ -->
+<footer>
+    <p>Dr. Marquezine &copy; 2026 &mdash; Todos os direitos reservados.</p>
+    <p>Este conteúdo não substitui consulta médica. Sempre siga as orientações do seu médico.</p>
+</footer>
+
+<!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ JS ━━━━━━━━━━━━━━━━━━ -->
+<script>
+    /* ── Countdown Timer ─────────────────────────────────────── */
+    (function () {
+        const STORAGE_KEY = 'escola_diabetes_deadline_v1';
+        const DURATION_MS = 23 * 3600 * 1000 + 59 * 60 * 1000; // ~24 h
+
+        let deadline = parseInt(localStorage.getItem(STORAGE_KEY) || '0');
+        if (!deadline || deadline < Date.now()) {
+            deadline = Date.now() + DURATION_MS;
+            localStorage.setItem(STORAGE_KEY, deadline);
+        }
+
+        const elH = document.getElementById('cd-h');
+        const elM = document.getElementById('cd-m');
+        const elS = document.getElementById('cd-s');
+        const pad = n => String(n).padStart(2, '0');
+
+        function tick() {
+            const diff = Math.max(0, deadline - Date.now());
+            elH.textContent = pad(Math.floor(diff / 3600000));
+            elM.textContent = pad(Math.floor((diff % 3600000) / 60000));
+            elS.textContent = pad(Math.floor((diff % 60000) / 1000));
+        }
+
+        tick();
+        setInterval(tick, 1000);
+    })();
+
+    /* ── FAQ Accordion ───────────────────────────────────────── */
+    function toggleFaq(btn) {
+        const item = btn.closest('.faq-item');
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+        if (!isOpen) item.classList.add('open');
+    }
+</script>
+
+</body>
+</html>
